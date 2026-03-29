@@ -1,0 +1,70 @@
+@if (label) {
+  <label
+    [for]="inputId"
+    class="ile-label"
+  >
+    {{ label }}
+  </label>
+}
+
+<!--
+  Native <input>
+  · [value]             one-way from parent; (input) emits back for [(value)] two-way binding
+  · aria-describedby    points at the error div only when an error is active
+  · aria-invalid        set to "true" when errorMessage is non-null
+  · aria-label          overrides the visible label for screen readers when supplied
+  · aria-disabled       mirrors the disabled prop for assistive technology
+-->
+<input
+  #inputRef
+  [id]="inputId"
+  class="ile-input"
+  [class.ile-input--small]="size === 'small'"
+  [class.ile-input--medium]="size === 'medium'"
+  [class.ile-input--large]="size === 'large'"
+  [class.ile-input--error]="!!errorMessage"
+  [type]="type"
+  [placeholder]="placeholder"
+  [value]="value"
+  [disabled]="disabled"
+  [autocomplete]="autocomplete"
+  [attr.aria-label]="ariaLabel ?? null"
+  [attr.aria-describedby]="errorMessage ? errorId : null"
+  [attr.aria-invalid]="errorMessage ? 'true' : null"
+  [attr.aria-disabled]="disabled ? 'true' : null"
+  role="textbox"
+  (input)="onInput($event)"
+  (keyup)="onKeyup($event)"
+  (blur)="onBlur($event)"
+  (focus)="onFocus($event)"
+/>
+
+@if (errorMessage) {
+  <div
+    [id]="errorId"
+    class="ile-error"
+    role="alert"
+    aria-live="assertive"
+  >
+    <!-- Fluent dismiss-circle icon, 12 px, decorative only -->
+    <svg
+      class="ile-error__icon"
+      aria-hidden="true"
+      focusable="false"
+      width="12"
+      height="12"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10 2a8 8 0 1 1 0 16A8 8 0 0 1 10 2Zm0 1.5a6.5 6.5 0 1 0 0 13
+           6.5 6.5 0 0 0 0-13ZM10 13a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0-7.5a.75.75
+           0 0 1 .75.75v5a.75.75 0 0 1-1.5 0v-5A.75.75 0 0 1 10 5.5Z"
+        fill="currentColor"
+      />
+    </svg>
+
+    <span class="ile-error__text">{{ errorMessage }}</span>
+  </div>
+}

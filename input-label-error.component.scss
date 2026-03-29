@@ -1,0 +1,165 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Fluent UI v9 design tokens
+// Use @fluentui/theme if available; otherwise these hex values are exact copies.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Typography
+$font-family      : 'Segoe UI', system-ui, sans-serif;
+$font-size-label  : 14px;
+$font-size-input  : 16px;
+$fw-regular       : 400;
+$fw-semibold      : 600;
+
+// Neutral palette
+$color-fg-rest        : #323130;   // label & input text
+$color-bg-rest        : #ffffff;   // input background
+$color-bg-disabled    : #f3f2f1;
+$color-stroke-rest    : #8a8886;   // border (rest)
+$color-stroke-hover   : #5b5a59;   // border (hover)
+$color-stroke-focus   : #605e5c;   // border + ring (focus)
+$color-stroke-disabled: #c8c6c4;
+$color-fg-disabled    : #a19f9d;
+
+// Critical (error)
+$color-error-stroke   : #d13438;
+$color-error-fg       : #d13438;
+
+// Spacing & shape
+$spacing-label-gap  : 4px;    // label → input
+$spacing-error-gap  : 2px;    // input → error text
+$padding-x          : 8px;    // horizontal padding inside input
+$border-radius      : 2px;
+
+// Height map (spec §4)
+$h-small  : 24px;
+$h-medium : 28px;
+$h-large  : 32px;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Host — the component IS the outer container
+// ─────────────────────────────────────────────────────────────────────────────
+
+:host {
+  display        : flex;
+  flex-direction : column;
+  font-family    : $font-family;
+  box-sizing     : border-box;
+  width          : 100%;          // overridden by @HostBinding style.width
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Label
+// ─────────────────────────────────────────────────────────────────────────────
+
+.ile-label {
+  display       : block;
+  font-family   : $font-family;
+  font-size     : $font-size-label;
+  font-weight   : $fw-semibold;
+  color         : $color-fg-rest;
+  margin-bottom : $spacing-label-gap;
+  line-height   : 1.4;
+  cursor        : default;
+  user-select   : none;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Input
+// ─────────────────────────────────────────────────────────────────────────────
+
+.ile-input {
+  display          : block;
+  width            : 100%;
+  box-sizing       : border-box;
+
+  font-family      : $font-family;
+  font-size        : $font-size-input;
+  font-weight      : $fw-regular;
+  color            : $color-fg-rest;
+
+  background-color : $color-bg-rest;
+  border           : 1px solid $color-stroke-rest;
+  border-radius    : $border-radius;
+
+  padding          : 0 $padding-x;
+  outline          : none;
+  cursor           : text;
+  transition       : border-color 80ms ease;
+
+  // ── Size variants ─────────────────────────────────────────────────────────
+  &--small  { height: $h-small;  }
+  &--medium { height: $h-medium; }
+  &--large  { height: $h-large;  }
+
+  // ── Hover ─────────────────────────────────────────────────────────────────
+  &:hover:not(:disabled) {
+    border-color: $color-stroke-hover;
+  }
+
+  // ── Focus ─────────────────────────────────────────────────────────────────
+  &:focus {
+    border-color   : $color-stroke-focus;
+    outline        : 2px solid $color-stroke-focus;
+    outline-offset : 2px;
+  }
+
+  // ── Error state ───────────────────────────────────────────────────────────
+  &--error {
+    border-color: $color-error-stroke;
+
+    &:focus {
+      outline-color: $color-error-stroke;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: $color-error-stroke;
+    }
+  }
+
+  // ── Disabled ──────────────────────────────────────────────────────────────
+  &:disabled {
+    background-color : $color-bg-disabled;
+    border-color     : $color-stroke-disabled;
+    color            : $color-fg-disabled;
+    cursor           : not-allowed;
+
+    &:hover {
+      border-color: $color-stroke-disabled;
+    }
+  }
+
+  // ── Placeholder ───────────────────────────────────────────────────────────
+  &::placeholder {
+    color   : $color-fg-disabled;
+    opacity : 1;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Error message
+// ─────────────────────────────────────────────────────────────────────────────
+
+.ile-error {
+  display     : flex;
+  align-items : center;
+  gap         : 4px;
+  margin-top  : $spacing-error-gap;
+
+  font-family : $font-family;
+  font-size   : $font-size-label;
+  font-weight : $fw-regular;
+  color       : $color-error-fg;
+  line-height : 1.4;
+
+  &__icon {
+    flex-shrink : 0;
+    width       : 12px;
+    height      : 12px;
+    color       : $color-error-fg;
+  }
+
+  &__text {
+    overflow-wrap : break-word;
+    word-break    : break-word;
+  }
+}

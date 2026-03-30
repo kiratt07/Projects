@@ -1,0 +1,11 @@
+<app-input-label-error
+  label="Email address"
+  size="large"
+  [width]="300"
+  placeholder="you@domain.com"
+  type="email"
+  [(value)]="email"
+  [errorMessage]="emailError"
+  (keyup)="onKeyup($event)"
+  (blur)="validateEmail()"
+/>

@@ -1,0 +1,81 @@
+@if (isVisible) {
+
+  <!-- Backdrop -->
+  <div
+    class="sp-backdrop"
+    [class.sp-backdrop--visible]="isOpen"
+    (click)="onBackdropClick()"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Panel -->
+  <div
+    class="sp-panel"
+    [class.sp-panel--right]="position === 'right'"
+    [class.sp-panel--left]="position === 'left'"
+    [class.sp-panel--open]="isOpen"
+    [style.width]="width"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="title"
+  >
+
+    <!-- Header -->
+    <div class="sp-panel__header">
+      <h2 class="sp-panel__title">{{ title }}</h2>
+
+      <button
+        class="sp-panel__close"
+        type="button"
+        aria-label="Close panel"
+        (click)="requestClose()"
+      >
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
+             xmlns="http://www.w3.org/2000/svg"
+             aria-hidden="true" focusable="false">
+          <path d="M4.09 4.22a.75.75 0 0 1 1.06 0L10 9.07l4.85-4.85a.75.75 0 1 1
+                   1.06 1.06L11.06 10l4.85 4.85a.75.75 0 0 1-1.06 1.06L10 11.06
+                   l-4.85 4.85a.75.75 0 0 1-1.06-1.06L8.94 10 4.09 5.28a.75.75
+                   0 0 1 0-1.06Z" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="sp-panel__divider"></div>
+
+    <!-- Body -->
+    <div class="sp-panel__body">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="sp-panel__divider"></div>
+
+    <!-- Footer -->
+    <div class="sp-panel__footer">
+
+      <ng-content select="[slot=footer]"></ng-content>
+
+      @if (primaryLabel) {
+        <button
+          class="sp-btn sp-btn--primary"
+          type="button"
+          (click)="onPrimaryClick()"
+        >
+          {{ primaryLabel }}
+        </button>
+      }
+
+      @if (secondaryLabel) {
+        <button
+          class="sp-btn sp-btn--secondary"
+          type="button"
+          (click)="onSecondaryClick()"
+        >
+          {{ secondaryLabel }}
+        </button>
+      }
+
+    </div>
+
+  </div>
+}

@@ -1,0 +1,78 @@
+<!-- Main page -->
+<div style="padding: 40px; font-family: 'Segoe UI', sans-serif;">
+
+  <h1 style="font-size:24px; font-weight:600; color:#242424; margin-bottom:8px;">
+    Fluent UI Side Panel
+  </h1>
+  <p style="color:#616161; margin-bottom:32px;">
+    Click a button to open the panel from either side.
+  </p>
+
+  <div style="display:flex; gap:12px;">
+
+    <button
+      style="height:32px; padding:0 16px; background:#0f6cbd; color:#fff;
+             border:none; border-radius:4px; font-size:14px; font-weight:600; cursor:pointer;"
+      (click)="openPanel('right')"
+    >
+      Open from Right
+    </button>
+
+    <button
+      style="height:32px; padding:0 16px; background:#fff; color:#242424;
+             border:1px solid #d1d1d1; border-radius:4px; font-size:14px;
+             font-weight:600; cursor:pointer;"
+      (click)="openPanel('left')"
+    >
+      Open from Left
+    </button>
+
+  </div>
+</div>
+
+<!-- Side Panel -->
+<app-side-panel
+  [isOpen]="panelOpen"
+  [position]="panelPosition"
+  title="Edit Profile"
+  width="380px"
+  primaryLabel="Save"
+  secondaryLabel="Cancel"
+  (closed)="panelOpen = false"
+  (primaryAction)="onSave()"
+>
+
+  <!-- Editable body content -->
+  <div style="display:flex; flex-direction:column; gap:20px;">
+
+    <div style="display:flex; flex-direction:column; gap:4px;">
+      <label style="font-size:14px; font-weight:600; color:#323130;">
+        Full name
+      </label>
+      <input
+        type="text"
+        [(ngModel)]="name"
+        placeholder="Enter your name"
+        style="height:32px; padding:0 8px; border:1px solid #8a8886;
+               border-radius:2px; font-size:14px; font-family:'Segoe UI',sans-serif;
+               outline:none; width:100%; box-sizing:border-box;"
+      />
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:4px;">
+      <label style="font-size:14px; font-weight:600; color:#323130;">
+        Email address
+      </label>
+      <input
+        type="email"
+        [(ngModel)]="email"
+        placeholder="you@domain.com"
+        style="height:32px; padding:0 8px; border:1px solid #8a8886;
+               border-radius:2px; font-size:14px; font-family:'Segoe UI',sans-serif;
+               outline:none; width:100%; box-sizing:border-box;"
+      />
+    </div>
+
+  </div>
+
+</app-side-panel>
